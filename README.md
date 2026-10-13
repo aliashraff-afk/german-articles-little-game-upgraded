@@ -3,6 +3,10 @@
 A small browser game for practicing German noun articles. Each round asks for the article (**der**, **die** or **das**) of a random noun, gives instant feedback, and remembers the words you miss so you can practice them later.
 
 
+<img width="1770" height="1200" alt="preview" src="https://github.com/user-attachments/assets/729c810c-c427-43da-b7b4-00bd4f3a5de8" />
+
+
+
 ## Features
 
 - 80 nouns in two categories: **everyday** words and **customer service** vocabulary (Rechnung, Bestellung, Kündigung, Passwort, ...).
