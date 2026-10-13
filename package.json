@@ -1,0 +1,11 @@
+{
+  "name": "german-articles-quiz",
+  "version": "1.0.0",
+  "description": "A small browser quiz for practicing German noun articles (der, die, das).",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test",
+    "start": "npx serve ."
+  }
+}

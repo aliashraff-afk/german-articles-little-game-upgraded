@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>der die das: German articles quiz</title>
+  <meta name="description" content="Practice German noun articles (der, die, das) with 80 everyday and customer-service words. Tracks the words you miss.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23141a26'/%3E%3Crect x='6' y='8' width='5' height='16' rx='2.5' fill='%233f6fdc'/%3E%3Crect x='13.5' y='8' width='5' height='16' rx='2.5' fill='%23d4455f'/%3E%3Crect x='21' y='8' width='5' height='16' rx='2.5' fill='%2323905f'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <p class="brand" aria-label="der die das">
+      <span class="der">der</span> <span class="die">die</span> <span class="das">das</span>
+    </p>
+
+    <main>
+      <!-- Start screen: settings -->
+      <section id="start-screen" class="screen">
+        <h1 tabindex="-1">Which article goes with the noun?</h1>
+        <p class="lede">Pick der, die or das for each word. Words you miss often come back in weak-word practice.</p>
+
+        <fieldset class="field">
+          <legend>Words</legend>
+          <div class="seg">
+            <label><input type="radio" name="category" value="all"><span data-category-label="all">All words</span></label>
+            <label><input type="radio" name="category" value="everyday"><span data-category-label="everyday">Everyday</span></label>
+            <label><input type="radio" name="category" value="service"><span data-category-label="service">Customer service</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Round length</legend>
+          <div class="seg">
+            <label><input type="radio" name="length" value="10"><span>10 questions</span></label>
+            <label><input type="radio" name="length" value="20"><span>20 questions</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Meaning hints</legend>
+          <div class="seg">
+            <label><input type="radio" name="hints" value="en"><span>English</span></label>
+            <label><input type="radio" name="hints" value="ar"><span lang="ar">العربية</span></label>
+            <label><input type="radio" name="hints" value="off"><span>Off</span></label>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="button" id="start-round" class="btn primary">Start round</button>
+          <button type="button" id="start-weak" class="btn">Practice weak words</button>
+        </div>
+        <p id="weak-note" class="muted small"></p>
+      </section>
+
+      <!-- Quiz screen -->
+      <section id="quiz-screen" class="screen" hidden>
+        <h2 class="sr-only" tabindex="-1">Quiz</h2>
+        <div class="quiz-top">
+          <p id="progress-text" class="muted">Question 1 of 10</p>
+          <button type="button" id="end-round" class="link">End round</button>
+        </div>
+        <div id="ticks" class="ticks" aria-hidden="true"></div>
+        <p class="meter">
+          <span>Score <strong id="score">0</strong></span>
+          <span>Streak <strong id="streak">0</strong></span>
+        </p>
+
+        <div class="stage">
+          <p class="prompt">
+            <span id="slot" class="slot" aria-hidden="true"></span>
+            <span id="word" class="word" lang="de"></span>
+          </p>
+          <p id="hint" class="hint"></p>
+        </div>
+
+        <div class="keys" role="group" aria-label="Choose the article. Shortcuts: 1, 2, 3">
+          <button type="button" class="key" data-article="der">der<small>1</small></button>
+          <button type="button" class="key" data-article="die">die<small>2</small></button>
+          <button type="button" class="key" data-article="das">das<small>3</small></button>
+        </div>
+
+        <p id="feedback" class="feedback" role="status"></p>
+        <p id="tip" class="tip"></p>
+        <button type="button" id="next" class="btn primary" hidden>Next</button>
+      </section>
+
+      <!-- Result screen -->
+      <section id="result-screen" class="screen" hidden>
+        <h2 id="result-title" class="score-big" tabindex="-1"></h2>
+        <p id="result-sub" class="lede"></p>
+        <div id="review" class="review"></div>
+        <div class="actions">
+          <button type="button" id="play-again" class="btn primary">Play again</button>
+          <button type="button" id="result-weak" class="btn">Practice weak words</button>
+          <button type="button" id="change-settings" class="btn">Change settings</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Built with HTML, CSS and JavaScript.</span>
+      <a href="https://github.com/YOUR-USERNAME/german-articles-quiz">Source on GitHub</a>
+      <button type="button" id="reset-progress" class="link">Reset saved progress</button>
+    </footer>
+  </div>
+
+  <script src="js/words.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

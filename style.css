@@ -1,0 +1,334 @@
+/* Colors follow the convention used in many German textbooks:
+   der = blue, die = red, das = green. */
+:root {
+  color-scheme: light dark;
+
+  --bg: #eef1f6;
+  --panel: #ffffff;
+  --ink: #141a26;
+  --muted: #566074;
+  --line: #d5dbe6;
+
+  --der: #2457c5;
+  --der-deep: #173c8c;
+  --der-text: #2457c5;
+  --die: #c23652;
+  --die-deep: #8c2339;
+  --die-text: #c23652;
+  --das: #1b7f52;
+  --das-deep: #115a38;
+  --das-text: #1b7f52;
+
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e131b;
+    --panel: #171f2b;
+    --ink: #e9eef6;
+    --muted: #9aa6ba;
+    --line: #2a3445;
+
+    --der: #3f6fdc;
+    --der-deep: #26469b;
+    --der-text: #8db0ff;
+    --die: #d1455f;
+    --die-deep: #962a40;
+    --die-text: #ff8fa3;
+    --das: #23905f;
+    --das-deep: #15633f;
+    --das-text: #5cd09b;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  line-height: 1.5;
+}
+
+.app {
+  width: 100%;
+  max-width: 560px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 20px 16px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+main { flex: 1; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Brand ---------- */
+.brand {
+  margin: 0 0 28px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.brand .der, .art[data-article="der"] { color: var(--der-text); }
+.brand .die, .art[data-article="die"] { color: var(--die-text); }
+.brand .das, .art[data-article="das"] { color: var(--das-text); }
+
+/* ---------- Text ---------- */
+h1, h2 { margin: 0 0 8px; line-height: 1.15; letter-spacing: -0.02em; }
+h1 { font-size: clamp(1.8rem, 7vw, 2.3rem); font-weight: 800; }
+.lede { margin: 0 0 24px; color: var(--muted); font-size: 1.05rem; max-width: 52ch; }
+.muted { color: var(--muted); }
+.small { font-size: 0.9rem; }
+[tabindex="-1"]:focus { outline: none; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  font: inherit;
+  font-weight: 700;
+  padding: 14px 18px;
+  color: var(--ink);
+  background: transparent;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  cursor: pointer;
+}
+.btn.primary { color: var(--bg); background: var(--ink); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn:focus-visible, .link:focus-visible, .footer a:focus-visible {
+  outline: 3px solid var(--der-text);
+  outline-offset: 3px;
+}
+
+.link {
+  font: inherit;
+  padding: 0;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.link:hover { color: var(--ink); }
+
+.actions { display: grid; gap: 10px; }
+
+/* ---------- Settings (segmented controls) ---------- */
+.field { margin: 0 0 20px; padding: 0; border: 0; }
+.field legend { margin: 0 0 8px; padding: 0; font-weight: 700; }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg label { position: relative; }
+.seg input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.seg span {
+  display: block;
+  padding: 9px 14px;
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+}
+.seg input:checked + span {
+  color: var(--bg);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.seg input:focus-visible + span {
+  outline: 3px solid var(--der-text);
+  outline-offset: 2px;
+}
+
+#weak-note { margin: 10px 0 0; }
+
+/* ---------- Quiz: progress ---------- */
+.quiz-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.quiz-top p { margin: 0; }
+
+.ticks { display: flex; gap: 4px; }
+.tick {
+  flex: 1;
+  height: 8px;
+  background: var(--line);
+  border-radius: 99px;
+}
+.tick.current { background: var(--muted); }
+.tick.right { background: var(--ink); }
+/* Wrong answers are striped, so they never rely on color alone. */
+.tick.wrong {
+  background: repeating-linear-gradient(135deg, var(--ink) 0 3px, var(--line) 3px 6px);
+}
+
+.meter {
+  display: flex;
+  gap: 18px;
+  margin: 10px 0 16px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.meter strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* ---------- Quiz: the word ---------- */
+.stage {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  min-height: 190px;
+  padding: 26px 14px 22px;
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+}
+
+.prompt {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.3em;
+  margin: 0;
+  font-size: clamp(2.3rem, 10vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.slot {
+  display: inline-block;
+  min-width: 2.1em;
+  color: transparent;
+  text-align: center;
+  border-bottom: 0.09em dashed var(--muted);
+}
+.slot::before { content: "\200b"; }
+.slot.filled { border-bottom-style: solid; border-bottom-color: currentColor; }
+.slot[data-article="der"] { color: var(--der-text); }
+.slot[data-article="die"] { color: var(--die-text); }
+.slot[data-article="das"] { color: var(--das-text); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .slot.filled { animation: fill-in 0.22s ease-out; }
+}
+@keyframes fill-in {
+  from { opacity: 0.2; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.hint { min-height: 1.6em; margin: 0; color: var(--muted); font-size: 1.1rem; }
+
+/* ---------- Quiz: answer keys ---------- */
+.keys {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 22px 0 8px;
+}
+
+.key {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 18px 6px 14px;
+  font: inherit;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--c);
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 6px 0 var(--c-deep);
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.key small { font-size: 0.8rem; font-weight: 600; opacity: 0.8; }
+.key[data-article="der"] { --c: var(--der); --c-deep: var(--der-deep); }
+.key[data-article="die"] { --c: var(--die); --c-deep: var(--die-deep); }
+.key[data-article="das"] { --c: var(--das); --c-deep: var(--das-deep); }
+
+.key:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 2px 0 var(--c-deep); }
+.key:disabled { cursor: default; }
+.key:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+.key.dim { opacity: 0.35; }
+.key.wrong { opacity: 0.7; }
+
+/* Marks keep the result readable without color. */
+.key.correct::after, .key.wrong::after {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.95rem;
+  color: #141a26;
+  background: #fff;
+  border-radius: 50%;
+}
+.key.correct::after { content: "\2713"; }
+.key.wrong::after { content: "\2717"; }
+
+.feedback { min-height: 1.7em; margin: 16px 0 2px; font-size: 1.1rem; font-weight: 700; text-align: center; }
+.tip { min-height: 1.5em; margin: 0 0 14px; color: var(--muted); font-size: 0.95rem; text-align: center; }
+#next { width: 100%; }
+
+/* ---------- Result ---------- */
+.score-big { font-size: clamp(2.4rem, 11vw, 3.6rem); font-weight: 800; }
+
+.review { margin: 0 0 22px; }
+.review h3 { margin: 0 0 8px; font-size: 1rem; }
+.review ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.review li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.art { min-width: 2.2em; font-weight: 800; }
+.review .noun { font-weight: 700; }
+.review .meaning { margin-inline-start: auto; color: var(--muted); }
+
+/* ---------- Footer ---------- */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: 32px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.footer a { color: var(--muted); }
+.footer a:hover { color: var(--ink); }
+
+@media (max-width: 360px) {
+  .key { font-size: 1.45rem; }
+}
