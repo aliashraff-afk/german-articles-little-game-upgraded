@@ -2,9 +2,6 @@
 
 A small browser game for practicing German noun articles. Each round asks for the article (**der**, **die** or **das**) of a random noun, gives instant feedback, and remembers the words you miss so you can practice them later.
 
-**Live demo:** https://YOUR-USERNAME.github.io/german-articles-quiz/
-
-![Start screen, a quiz question in light mode, and a quiz question in dark mode](assets/preview.png)
 
 ## Features
 
